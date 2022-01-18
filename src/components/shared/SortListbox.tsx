@@ -1,33 +1,29 @@
-import { useState, Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+import { SelectorIcon } from "@heroicons/react/solid";
 import { SortType } from "../../types";
 
-type SortTypes = { id: number; name: SortType };
-
-const sortTypes: SortTypes[] = [
-  { id: 1, name: "asc" },
-  { id: 2, name: "desc" },
-];
+const sortTypes: SortType[] = ["asc", "desc"];
 
 type SortListboxProps = {
-  onChange: (sortType: SortType) => void;
+  value: string | null;
+  onChange: (sortType: string) => void;
 };
 
-function SortListbox({ onChange }: SortListboxProps) {
-  const [selectedType, setSelectedSortType] = useState<SortTypes>(sortTypes[0]);
+function SortListbox({ onChange, value }: SortListboxProps) {
+  const selected = useMemo(() => {
+    const found =
+      value && sortTypes.find((s) => s.toLowerCase() === value?.toLowerCase());
 
-  const handleChange = (selected: SortTypes) => {
-    setSelectedSortType(selected);
-    onChange(selected.name);
-  };
+    return found ? value : "asc";
+  }, [value]);
 
   return (
     <div className="w-22">
-      <Listbox value={selectedType} onChange={handleChange}>
+      <Listbox value={selected} onChange={onChange}>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
-            <span className="block truncate">{selectedType.name}</span>
+            <span className="block truncate">{selected}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <SelectorIcon
                 className="w-5 h-5 text-gray-400"
@@ -57,7 +53,7 @@ function SortListbox({ onChange }: SortListboxProps) {
                         selected ? "font-medium" : "font-normal"
                       } block truncate`}
                     >
-                      {sortType.name}
+                      {sortType}
                     </span>
                   )}
                 </Listbox.Option>
