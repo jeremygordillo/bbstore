@@ -1,8 +1,9 @@
+import { HeartIcon } from "@heroicons/react/solid";
 import { Product } from "../../types";
 
-type ProductViewProps = Product;
+type ProductDetailsProps = Product;
 
-const ProductView = (props: ProductViewProps) => {
+const ProductDetails = (props: ProductDetailsProps) => {
   const { image, title, price, description, category } = props;
   return (
     <div className="container lg:w-1/2 m-auto">
@@ -48,18 +49,7 @@ const ProductView = (props: ProductViewProps) => {
               type="button"
               aria-label="Like"
             >
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                />
-              </svg>
+              <HeartIcon className="w-6" />
             </button>
           </div>
           <div className="text-gray-600">
@@ -72,4 +62,4 @@ const ProductView = (props: ProductViewProps) => {
   );
 };
 
-export default ProductView;
+export default ProductDetails;
