@@ -33,15 +33,9 @@ const ProductDetails = (props: ProductDetailsProps) => {
             <div className="flex-auto flex space-x-4">
               <button
                 className="h-10 px-6 font-semibold bg-black text-white"
-                type="submit"
-              >
-                Buy now
-              </button>
-              <button
-                className="h-10 px-6 font-semibold border border-slate-300 text-slate-900"
                 type="button"
               >
-                Add to bag
+                Aggiungi al carello
               </button>
             </div>
             <button

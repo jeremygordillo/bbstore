@@ -30,6 +30,7 @@ const ProductView = ({ products }: ProductViewProps) => {
     },
     [searchParams, setSearchParams]
   );
+
   const filtered = useMemo(() => {
     const qs = serializeQueryParams(searchParams);
     if (products.length === 0) return products;
@@ -38,6 +39,11 @@ const ProductView = ({ products }: ProductViewProps) => {
     pager.current = newPager;
     return products.slice(newPager.startIndex, newPager.endIndex + 1);
   }, [searchParams, products, page]);
+
+  const showPagination =
+    pager.current && pager.current.totalItems > pager.current.pageSize;
+
+  if (filtered.length === 0) return null;
 
   return (
     <div className="w-full p-8">
@@ -52,7 +58,7 @@ const ProductView = ({ products }: ProductViewProps) => {
         />
       </div>
       <ProductList products={filtered} />
-      {pager.current && pager.current.totalItems > pager.current.pageSize && (
+      {showPagination && (
         <Pagination
           disablePrev={page === 1}
           disableNext={page === pager.current?.endPage}

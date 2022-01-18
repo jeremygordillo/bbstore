@@ -5,14 +5,7 @@ export function serializeQueryParams(searchParams: URLSearchParams) {
   return qs;
 }
 
-export function getPager(
-  totalItems: number,
-  pageSize: number,
-  currentPage?: number
-) {
-  // default to first page
-  currentPage = currentPage || 1;
-
+export function getPager(totalItems: number, pageSize = 5, currentPage = 1) {
   // calculate total pages
   var totalPages = Math.ceil(totalItems / pageSize);
 
